@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CloudWeather.Precipitation.DataAccess
 {
-    public class PrecipDbContext : DbContext
+    public class PrecipitationDbContext : DbContext
     {
-        public PrecipDbContext() { }
-        public PrecipDbContext(DbContextOptions opts) : base(opts) { }
+        public PrecipitationDbContext() { }
+        public PrecipitationDbContext(DbContextOptions opts) : base(opts) { }
         
         public DbSet<Precipitation> Precipitation { get; set; } 
 

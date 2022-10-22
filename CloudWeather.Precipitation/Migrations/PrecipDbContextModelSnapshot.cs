@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CloudWeather.Precipitation.Migrations
 {
-    [DbContext(typeof(PrecipDbContext))]
+    [DbContext(typeof(PrecipitationDbContext))]
     partial class PrecipDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

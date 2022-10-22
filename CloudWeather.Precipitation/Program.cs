@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<PrecipDbContext>(
+builder.Services.AddDbContext<PrecipitationDbContext>(
     opts => {
         opts.EnableSensitiveDataLogging();
         opts.EnableDetailedErrors();
@@ -14,7 +14,7 @@ builder.Services.AddDbContext<PrecipDbContext>(
 
 var app = builder.Build();
 
-app.MapGet("/observation/{zip}", async (string zip, [FromQuery] int? days, PrecipDbContext db) => {
+app.MapGet("/observation/{zip}", async (string zip, [FromQuery] int? days, PrecipitationDbContext db) => {
     if (days is null || days < 0 || days > 30 ) {
         return Results.BadRequest("Please provide a 'days' query parameter between 1 and 30");
     }
