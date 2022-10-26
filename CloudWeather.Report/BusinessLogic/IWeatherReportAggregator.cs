@@ -3,7 +3,7 @@ using CloudWeather.Report.DataAccess;
 namespace CloudWeather.Report.BusinessLogic
 {
     /// <summary>
-    /// Aggregates data from multiple external sources to bvuild a weather report
+    /// Aggregates data from multiple external sources to bvuild a weather reportF
     /// </summary>
     public interface IWeatherReportAggregator
     {
