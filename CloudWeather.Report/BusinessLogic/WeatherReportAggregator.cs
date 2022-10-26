@@ -84,7 +84,7 @@ namespace CloudWeather.Report.BusinessLogic
         {
             var totalSnow = precipData
                 .Where(p => p.WeatherType == "snow")
-                .Sum(p => p.AmountIncher);
+                .Sum(p => p.AmountInches);
             return Math.Round(totalSnow, 1);
         }
 
@@ -92,7 +92,7 @@ namespace CloudWeather.Report.BusinessLogic
         {
             var totalRain = precipData
                 .Where(p => p.WeatherType == "rain")
-                .Sum(p => p.AmountIncher);
+                .Sum(p => p.AmountInches);
             return Math.Round(totalRain, 1);
         }
 
@@ -109,7 +109,7 @@ namespace CloudWeather.Report.BusinessLogic
             var tempServiceProtocol = _weatherDataConfig.TempDataProtocol;
             var tempServiceHost = _weatherDataConfig.TempDataHost;
             var tempServicePort = _weatherDataConfig.TempDataPort;
-            return $"{tempServiceProtocol}://{tempServiceHost}:{tempServicePort}/observation/{zip}?days?{days}";
+            return $"{tempServiceProtocol}://{tempServiceHost}:{tempServicePort}/observation/{zip}?days={days}";
         }
 
         private string BuildPrecipitationServiceEndpoint(string zip, int days)
@@ -117,7 +117,7 @@ namespace CloudWeather.Report.BusinessLogic
             var precipServiceProtocol = _weatherDataConfig.PrecipDataProtocol;
             var precipServiceHost = _weatherDataConfig.PrecipDataHost;
             var precipServicePort = _weatherDataConfig.PrecipDataPort;
-            return $"{precipServiceProtocol}://{precipServiceHost}:{precipServicePort}/observation/{zip}?days?{days}";
+            return $"{precipServiceProtocol}://{precipServiceHost}:{precipServicePort}/observation/{zip}?days={days}";
         }
     }
 }

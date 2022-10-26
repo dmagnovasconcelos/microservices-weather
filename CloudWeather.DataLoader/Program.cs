@@ -28,7 +28,7 @@ var zipCodes = new List<string> {
 Console.WriteLine("Starting Data Load");
 
 var temperatureHttpClient = new HttpClient();
-temperatureHttpClient.BaseAddress = new Uri($"http://{tempServiceHost}:{tempServiceHost}");
+temperatureHttpClient.BaseAddress = new Uri($"http://{tempServiceHost}:{tempServicePort}");
 
 var precipitationHttpClient = new HttpClient();
 precipitationHttpClient.BaseAddress = new Uri($"http://{precipServiceHost}:{precipServicePort}");
@@ -56,7 +56,7 @@ void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationH
             precipitation = new PrecipitationModel {
                 AmountInches = precipInches,
                 WeatherType = "snow",
-                ZipeCode = zip,
+                ZipCode = zip,
                 CreatedOn = day
             };
         }
@@ -64,7 +64,7 @@ void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationH
             precipitation = new PrecipitationModel {
                 AmountInches = precipInches,
                 WeatherType = "rain",
-                ZipeCode = zip,
+                ZipCode = zip,
                 CreatedOn = day
             };
         }
@@ -73,7 +73,7 @@ void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationH
         precipitation = new PrecipitationModel {
                 AmountInches = 0,
                 WeatherType = "none",
-                ZipeCode = zip,
+                ZipCode = zip,
                 CreatedOn = day
             };
     }
@@ -89,9 +89,36 @@ void PostPrecip(int lowTemp, string zip, DateTime day, HttpClient precipitationH
                           $"Amount (in.): {precipitation.AmountInches}"
         );
     }
+    else {
+        Console.WriteLine(precipResponse.ToString());
+    }
 }
 
-List<int> PostTemp(string zip, DateTime day, HttpClient temperatureHttpClient)
-{
-    throw new NotImplementedException();
+List<int> PostTemp(string zip, DateTime day, HttpClient temperatureHttpClient) {
+    var rand = new Random();
+    var t1 = rand.Next(0, 100);
+    var t2 = rand.Next(0, 100);
+    var hiLoTemps = new List<int> { t1, t2 };
+    hiLoTemps.Sort();
+
+    var temperatureObservation = new TemperatureModel {
+        TempHighF = hiLoTemps[0],
+        TempLowF = hiLoTemps[1],
+        ZipCode = zip,
+        CreatedOn = day
+    };
+
+    var tempResponse = temperatureHttpClient
+        .PostAsJsonAsync("observation", temperatureObservation)
+        .Result;
+
+    if (tempResponse.IsSuccessStatusCode) {
+        Console.WriteLine($"Posted Temperature: Date: {day:d} " +
+                          $"Zip: {zip} " +
+                          $"Lo (F): {hiLoTemps[0]} " +
+                          $"Hi (F): {hiLoTemps[1]}" 
+        );
+    }
+
+    return hiLoTemps;
 }

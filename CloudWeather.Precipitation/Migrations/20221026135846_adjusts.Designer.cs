@@ -3,6 +3,7 @@ using System;
 using CloudWeather.Precipitation.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CloudWeather.Precipitation.Migrations
 {
     [DbContext(typeof(PrecipitationDbContext))]
-    partial class PrecipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221026135846_adjusts")]
+    partial class adjusts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
